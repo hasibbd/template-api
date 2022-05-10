@@ -35,20 +35,31 @@
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <!--Toaster-->
 <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+<script src="{{asset('plugins/menu-editor/jquery-menu-editor.js')}}"></script>
+<script type="text/javascript" src="{{asset('plugins/bootstrap-iconpicker/js/iconset/fontawesome5-3-1.min.js')}}"></script>
+<script type="text/javascript" src="{{asset('plugins/bootstrap-iconpicker/js/bootstrap-iconpicker.min.js')}}"></script>
 <script src="{{asset('custom/js/admin.js')}}"></script>
-<script>
-    $(function () {
-        $("#user_list").DataTable({
-            processing: true,
-            serverSide: true,
-            ajax: "{{ route('user-list.index') }}",
-            columns: [
-                {data: 'id', name: 'id'},
-                {data: 'name', name: 'name'},
-                {data: 'email', name: 'email'},
-                {data: 'action', name: 'action', orderable: false, searchable: false},
-            ]
-        });
+@switch(Request::segment(1))
+    @case('user-list')
+    <script>
+        $(function () {
+            $("#user_list").DataTable({
+                processing: true,
+                serverSide: true,
+                ajax: "{{ route('user-list.index') }}",
+                columns: [
+                    {data: 'id', name: 'id'},
+                    {data: 'name', name: 'name'},
+                    {data: 'email', name: 'email'},
+                    {data: 'action', name: 'action', orderable: false, searchable: false},
+                ]
+            });
 
-    });
-</script>
+        });
+    </script>
+    @break
+    @case('menu-list')
+    <script src="{{asset('dist/js/menu.js')}}"></script>
+    @break
+
+@endswitch

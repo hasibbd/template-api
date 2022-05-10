@@ -3,6 +3,7 @@
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ListController;
+use App\Http\Controllers\Menu\MenuController;
 use App\Http\Controllers\User\ProfileController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
@@ -21,6 +22,9 @@ use Illuminate\Support\Facades\Route;
 Route::middleware(['admin'])->group(function () {
     Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
     Route::get('user-list', [ListController::class, 'index'])->name('user-list.index');
+    Route::get('menu-list', [MenuController::class, 'index']);
+    Route::get('get-menu-list', [MenuController::class, 'getList']);
+    Route::post('menu-store', [MenuController::class, 'store']);
     Route::get('profile', [ProfileController::class, 'index'])->name('profile');
     Route::post('profile-info-change', [ProfileController::class, 'update']);
 });

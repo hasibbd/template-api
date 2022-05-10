@@ -17,5 +17,11 @@
                 <p>User List</p>
             </a>
         </li>
+        <li class="nav-item">
+            <a href="{{url('menu-list')}}" class="nav-link {{ Request::segment(1) == 'menu-list'  ? 'active' : ''}}">
+                <i class="nav-icon far fa-circle text-info"></i>
+                <p>Menu List</p>
+            </a>
+        </li>
     </ul>
 </nav>
