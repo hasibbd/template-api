@@ -24,4 +24,5 @@
             </a>
         </li>
     </ul>
+    {{$this->menu}}
 </nav>

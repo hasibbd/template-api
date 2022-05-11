@@ -26,18 +26,35 @@ class MenuController extends Controller
     public function getList()
     {
       $list = Menu::all();
-      $info = $this->MenuJson($list, null);
+      $info = $this->MenuMaker($list, null);
       return response()->json([
-          'data' => $info,
+          'data' => json_encode($info),
           'message' => 'Menu loaded'
       ],200);
     }
-    public function MenuJson($data, $parent_id){
+    public function MenuMaker($data, $parent_id){
         $st = $data;
         $info = [];
         foreach ($st->where('parent_id', $parent_id) as $d){
-            array_push($info, $d);
-            $this->MenuJson($data, $d->id);
+            if(count($st->where('parent_id', $d->id)) > 0){
+                $d->children = $this->MenuMaker($data, $d->id);
+                array_push($info, [
+                    'text' => $d->text,
+                    'href' => $d->href,
+                    'icon' => $d->icon,
+                    'target' => $d->target,
+                    'title' => $d->title,
+                    'children' => $d->children,
+                ]);
+            }else{
+                array_push($info, [
+                    'text' => $d->text,
+                    'href' => $d->href,
+                    'icon' => $d->icon,
+                    'target' => $d->target,
+                    'title' => $d->title,
+                ]);
+            }
         }
         return $info;
     }
@@ -60,6 +77,12 @@ class MenuController extends Controller
      */
     public function store(Request $request)
     {
+        if (count($request->all()) == 0){
+            return response()->json([
+                'data' => [],
+                'message' => 'Menu can not be empty'
+            ],404);
+        }
         Menu::truncate();
        $st = $this->MenuFormatter($request->menu_data, null);
        if ($st){

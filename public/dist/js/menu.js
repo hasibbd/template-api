@@ -24,7 +24,8 @@ jQuery(document).ready(function () {
             type: 'get',
             url: my_url,
             success: (data) => {
-                editor.setData(data.data.menu_list);
+                console.log(data.data)
+                editor.setData(data.data);
                 toastr.success(data.message)
             },
             error: function (data) {
