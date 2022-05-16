@@ -23,3 +23,4 @@
 <link rel="stylesheet" href="{{asset('plugins/summernote/summernote-bs4.min.css')}}">
 <!--Toaster-->
 <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
+<link rel="stylesheet" href="{{asset('plugins/bootstrap-iconpicker/css/bootstrap-iconpicker.min.css')}}">
