@@ -1,6 +1,55 @@
 <nav class="mt-2">
     <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-        @foreach($menu->where('parent_id',null) as $m)
+        @foreach($menus as $menu)
+            <li class="nav-item @if($menu['children']) menu-open @endif">
+                <a href="{{$menu['href']}}" class="nav-link">
+                    <i class="nav-icon  {{$menu['icon']}}"></i>
+                    <p>
+                        {{$menu['text']}} {!! MenuActivator::check($menu['children']) !!}
+                        @if($menu['children'])
+                        <i class="right fas fa-angle-left"></i>
+                        @endif
+                    </p>
+                </a>
+                @if($menu['children'])
+                    @foreach($menu['children'] as $menu)
+                    <ul class="nav nav-treeview" style="display: none;">
+                        <li class="nav-item">
+                            <a href="{{$menu['href']}}" class="nav-link">
+                                <i class="{{$menu['icon']}} nav-icon"></i>
+                                <p>
+                                    {{$menu['text']}}
+                                    @if($menu['children'])
+                                        <i class="right fas fa-angle-left"></i>
+                                    @endif
+                                </p>
+                            </a>
+                            @if($menu['children'])
+                                @foreach($menu['children'] as $menu)
+                                    <ul class="nav nav-treeview" style="display: none;">
+                                        <li class="nav-item">
+                                            <a href="{{$menu['href']}}" class="nav-link">
+                                                <i class="{{$menu['icon']}} nav-icon"></i>
+                                                <p>
+                                                    {{$menu['text']}}
+                                                    @if($menu['children'])
+                                                        <i class="right fas fa-angle-left"></i>
+                                                    @endif
+                                                </p>
+                                            </a>
+
+                                        </li>
+                                    </ul>
+                                @endforeach
+                            @endif
+                        </li>
+                    </ul>
+                    @endforeach
+                @endif
+            </li>
+        @endforeach
+
+       {{-- @foreach($menu->where('parent_id',null) as $m)
             <?php
             $check = $menu->where('parent_id', $m->id)->count();
 
@@ -60,7 +109,7 @@
             </ul>
                 @endif
         </li>
-        @endforeach
+        @endforeach--}}
     </ul>
 
 </nav>
