@@ -4,6 +4,8 @@ use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ListController;
 use App\Http\Controllers\Menu\MenuController;
+use App\Http\Controllers\PermissionController;
+use App\Http\Controllers\RoleController;
 use App\Http\Controllers\User\ProfileController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
@@ -42,3 +44,9 @@ Route::post('user-forget', [UserController::class, 'forget']);
 Route::post('reset-user-pass', [UserController::class, 'reset']);
 Route::post('login-check', [DashboardController::class, 'index'])->middleware('login-check');
 Route::get('logout', [AuthController::class, 'logout'])->name('logout');
+
+Route::group(['middleware' => ['auth']], function() {
+    Route::resource('users', UserController::class);
+    Route::resource('roles', RoleController::class);
+    Route::resource('permissions', PermissionController::class);
+});
