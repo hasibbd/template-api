@@ -39,6 +39,9 @@
 <script type="text/javascript" src="{{asset('plugins/bootstrap-iconpicker/js/iconset/fontawesome5-3-1.min.js')}}"></script>
 <script type="text/javascript" src="{{asset('plugins/bootstrap-iconpicker/js/bootstrap-iconpicker.min.js')}}"></script>
 <script src="{{asset('custom/js/admin.js')}}"></script>
+//Custom js page wise
+<script src="{{asset('pages/js/'.Request::segment(1).'.js')}}"></script>
+//yajra data table
 @switch(Request::segment(1))
     @case('user-list')
     <script>
