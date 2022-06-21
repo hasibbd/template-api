@@ -26,8 +26,13 @@
                   <div class="col-12">
                      <div class="card">
                          <div class="card-header">
-                             <div class="card-title">
-                                User List
+                             <div class="row">
+                                 <div class="col"><div class="card-title">
+                                         Flying User
+                                     </div></div>
+                                 <div class="col text-right">
+                                     <button onclick="$('#add_modal').modal('show')" class="btn btn-sm btn-primary">Add New</button>
+                                 </div>
                              </div>
                          </div>
                          <div class="card-body">

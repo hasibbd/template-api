@@ -39,9 +39,9 @@
 <script type="text/javascript" src="{{asset('plugins/bootstrap-iconpicker/js/iconset/fontawesome5-3-1.min.js')}}"></script>
 <script type="text/javascript" src="{{asset('plugins/bootstrap-iconpicker/js/bootstrap-iconpicker.min.js')}}"></script>
 <script src="{{asset('custom/js/admin.js')}}"></script>
-//Custom js page wise
+{{--//Custom js page wise--}}
 <script src="{{asset('pages/js/'.Request::segment(1).'.js')}}"></script>
-//yajra data table
+{{--//yajra data table--}}
 @switch(Request::segment(1))
     @case('user-list')
     <script>
@@ -51,7 +51,7 @@
                 serverSide: true,
                 ajax: "{{ route('user-list.index') }}",
                 columns: [
-                    {data: 'id', name: 'id'},
+                    {data: 'DT_RowIndex', name: 'DT_RowIndex'},
                     {data: 'name', name: 'name'},
                     {data: 'email', name: 'email'},
                     {data: 'action', name: 'action', orderable: false, searchable: false},
@@ -61,8 +61,42 @@
         });
     </script>
     @break
-    @case('menu-list')
-    <script src="{{asset('dist/js/menu.js')}}"></script>
+    @case('role-list')
+    <script>
+        $(function () {
+            $("#role_list").DataTable({
+                processing: true,
+                serverSide: true,
+                ajax: "{{ route('role-list.index') }}",
+                columns: [
+                    {data: 'DT_RowIndex', name: 'DT_RowIndex'},
+                    {data: 'name', name: 'name'},
+                    {data: 'status', name: 'status'},
+                    {data: 'action', name: 'action', orderable: false, searchable: false},
+                ]
+            });
+
+        });
+    </script>
+    @break
+    @case('permission-list')
+    <script>
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip()
+            $("#permission_list").DataTable({
+                processing: true,
+                serverSide: true,
+                ajax: "{{ route('permission-list.index') }}",
+                columns: [
+                    {data: 'DT_RowIndex', name: 'DT_RowIndex'},
+                    {data: 'name', name: 'name'},
+                    {data: 'status', name: 'status'},
+                    {data: 'action', name: 'action', orderable: false, searchable: false},
+                ]
+            });
+
+        });
+    </script>
     @break
 
 @endswitch

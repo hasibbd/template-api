@@ -49,6 +49,7 @@ class MenuController extends Controller
                'menu_list' => json_encode($request->menu_list)
            ]);
        }else{
+           $request->menu_id = rand(1,99999);
            Menu::create([
              'menu_list' => json_encode($request->menu_list)
            ]);

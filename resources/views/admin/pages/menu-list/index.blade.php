@@ -28,7 +28,7 @@
                             <div class="card-header"><h5 class="float-left">Menu</h5>
                                 <div class="float-right">
                                     <button id="btnReload" type="button" class="btn btn-outline-secondary">
-                                        <i class="fa fa-play"></i> Load Data</button>
+                                        <i class="fa fa-play"></i> Reload Data</button>
                                 </div>
                             </div>
                             <div class="card-body">

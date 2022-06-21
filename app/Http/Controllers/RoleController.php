@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Menu\Menu;
 use DB;
 use Illuminate\Http\Request;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
+use Yajra\DataTables\DataTables;
 
 class RoleController extends Controller
 {
@@ -29,9 +31,31 @@ class RoleController extends Controller
      */
     public function index(Request $request)
     {
-        $data = Role::orderBy('id','DESC')->paginate(5);
+        if ($request->ajax()) {
+            $data =  Role::orderBy('id','DESC')->get();
+            return Datatables::of($data)
+                ->addIndexColumn()
+                ->addColumn('action', function($row){
+                    $btn = '<button class="btn btn-primary btn-sm" onclick="Status('.$row->id.')"><i class="fas fa-sync-alt"></i></button>
+                            <button class="btn btn-warning btn-sm" onclick="Show('.$row->id.')"><i class="fas fa-pen-square"></i></button>
+                            <button class="btn btn-danger btn-sm" onclick="Delete('.$row->id.')"><i class="fas fa-trash"></i></button>';
 
-        return view('admin.pages.roles.index', compact('data'));
+                    return $btn;
+                })
+                ->editColumn('status', function($row){
+                    if ($row->status == 1){
+                        $btn = '<span class="badge badge-pill badge-primary">Active</span>';
+
+                    }else{
+                        $btn = '<span class="badge badge-pill badge-danger">Disabled</span>';
+
+                    }
+                    return $btn;
+                })
+                ->rawColumns(['action','status'])
+                ->make(true);
+        }
+        return view('admin.pages.roles-list.index');
     }
 
     /**
@@ -70,7 +94,7 @@ class RoleController extends Controller
      * Display the specified resource.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function show($id)
     {
@@ -78,15 +102,19 @@ class RoleController extends Controller
         $rolePermissions = Permission::join('role_has_permissions', 'role_has_permissions.permission_id', 'permissions.id')
             ->where('role_has_permissions.role_id',$id)
             ->get();
-
-        return view('roles.show', compact('role', 'rolePermissions'));
+        return response()->json([
+            'message' => 'Role lost',
+            'role' => $role,
+            'permission' => $rolePermissions
+        ],200);
+      //  return view('roles.show', compact('role', 'rolePermissions'));
     }
 
     /**
      * Show the form for editing the specified resource.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function edit($id)
     {
@@ -96,8 +124,12 @@ class RoleController extends Controller
             ->where('role_has_permissions.role_id', $id)
             ->pluck('role_has_permissions.permission_id', 'role_has_permissions.permission_id')
             ->all();
-
-        return view('roles.edit', compact('role', 'permission', 'rolePermissions'));
+        return response()->json([
+            'message' => 'Data status update to disabled',
+            'role' => $role,
+            'permission' => $rolePermissions
+        ],200);
+      //  return view('roles.edit', compact('role', 'permission', 'rolePermissions'));
     }
 
     /**
@@ -136,5 +168,25 @@ class RoleController extends Controller
 
         return redirect()->route('roles.index')
             ->with('success', 'Role deleted successfully');
+    }
+    public function status($id){
+        $data = Role::find($id);
+        if ($data->status){
+            $data = Role::where('id', $id)->update([
+                'status' => false
+            ]);
+            return response()->json([
+                'message' => 'Data status update to disabled',
+                'data' => $data
+            ],200);
+        }else{
+            $data = Role::where('id', $id)->update([
+                'status' => true
+            ]);
+            return response()->json([
+                'message' => 'Data status update to enable',
+                'data' => $data
+            ],200);
+        }
     }
 }

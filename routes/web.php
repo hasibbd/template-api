@@ -46,7 +46,18 @@ Route::post('login-check', [DashboardController::class, 'index'])->middleware('l
 Route::get('logout', [AuthController::class, 'logout'])->name('logout');
 
 Route::group(['middleware' => ['auth']], function() {
-    Route::resource('users', UserController::class);
-    Route::resource('roles', RoleController::class);
-    Route::resource('permissions', PermissionController::class);
+   // Route::resource('users', UserController::class);
+    Route::get('role-list', [RoleController::class, 'index'])->name('role-list.index');
+    Route::get('role-status/{id}', [RoleController::class, 'status']);
+    Route::get('role-show/{id}', [RoleController::class, 'show']);
+    Route::get('permission-list', [PermissionController::class, 'index'])->name('permission-list.index');
+    Route::get('permission-status/{id}', [PermissionController::class, 'status']);
+    Route::get('permission-show/{id}', [PermissionController::class, 'show']);
+    Route::delete('permission-delete/{id}', [PermissionController::class, 'destroy']);
+    Route::post('permission-store', [PermissionController::class, 'store']);
+
+
+    Route::get('privilege-list', [PermissionController::class, 'index2'])->name('privilege-list.index');
+   // Route::resource('roles', RoleController::class);
+   // Route::resource('permissions', PermissionController::class);
 });

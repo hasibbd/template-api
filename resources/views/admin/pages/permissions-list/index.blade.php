@@ -22,31 +22,52 @@
         <!-- Main content -->
         <section class="content">
             <div class="container-fluid">
+                <form action="" id="form_submit">
               <div class="row">
                   <div class="col-12">
                      <div class="card">
                          <div class="card-header">
-                             <div class="card-title">
-                                User List
+                             <div class="custom-control custom-checkbox">
+                                 <input type="checkbox" onclick="checkAll()" class="custom-control-input" id="all">
+                                 <label class="custom-control-label" for="all">Select All</label>
                              </div>
                          </div>
                          <div class="card-body">
-                             <table class="table table-bordered table-responsive-sm w-100 table-sm" id="user_list">
-                                 <thead>
-                                 <tr>
-                                     <th>No</th>
-                                     <th>Name</th>
-                                     <th>Email</th>
-                                     <th width="100px">Action</th>
-                                 </tr>
-                                 </thead>
-                                 <tbody>
-                                 </tbody>
-                             </table>
+                            <div class="row">
+                                @foreach($data->where('parent_menu', 0) as $d)
+                                   <div class="col-md-4">
+                                       <div class="card">
+                                           <div class="card-header">
+                                               <div class="custom-control custom-checkbox">
+                                                   <input type="checkbox" class="custom-control-input" id="{{$d->name}}1">
+                                                   <label class="custom-control-label" for="{{$d->name}}1">{{$d->name}}'s all</label>
+                                               </div>
+                                           </div>
+                                           <div class="card-body">
+                                               <div class="custom-control custom-checkbox">
+                                                   <input type="checkbox" class="custom-control-input" name="checked_item[]" value="{{$d->id}}" id="{{$d->name}}">
+                                                   <label class="custom-control-label" for="{{$d->name}}">{{$d->name}}</label>
+                                               </div>
+                                               @foreach($data->where('parent_menu', $d->id) as $c)
+                                                   <div class="custom-control custom-checkbox">
+                                                       <input type="checkbox" class="custom-control-input"  name="checked_item[]" value="{{$c->id}}" id="{{$c->name}}">
+                                                       <label class="custom-control-label" for="{{$c->name}}">{{$c->name}}</label>
+                                                   </div>
+                                               @endforeach
+
+                                           </div>
+                                       </div>
+                                   </div>
+                                @endforeach
+                            </div>
+                         </div>
+                         <div class="card-footer">
+                             <button type="submit" class="btn btn-sm btn-primary">Save</button>
                          </div>
                      </div>
                   </div>
               </div>
+                </form>
             </div><!-- /.container-fluid -->
         </section>
         <!-- /.content -->
