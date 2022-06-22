@@ -8,29 +8,39 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <form id="form_submit" enctype="multipart/form-data">
+            <form id="form_submit_permission" enctype="multipart/form-data">
                 <div class="modal-body">
                   <div class="row">
                       <div class="col-md-6">
                           <input type="hidden" name="id" id="id">
                           <div class="form-group ">
-                              <label for="title">Title</label>
-                              <input type="text" class="form-control" id="title" name="title" placeholder="Title" required>
+                              <label for="title">Role Mame</label>
+                              <input type="text" class="form-control" id="role" name="role" placeholder="Role Name" required>
                           </div>
                       </div>
                       <div class="col-md-12">
-                        <div class="row" id="role-view">
-                            <div class="col-4">
-                                <div class="card">
-                                    <div class="card-header">
-                                        <h1 class=card-title>f</h1>
-                                    </div>
-                                    <div class="card-body">
+                          <form action="" id="form_submit">
+                              <div class="row">
+                                  <div class="col-12">
+                                      <div class="card">
+                                          <div class="card-header bg-primary">
+                                              <div class="custom-control custom-checkbox">
+                                                  <input type="checkbox" onclick="checkAll()" class="custom-control-input" id="all">
+                                                  <label class="custom-control-label" for="all">Select All</label>
+                                              </div>
+                                          </div>
+                                          <div class="card-body">
+                                              <div class="row" id="permission_block">
 
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                                              </div>
+                                          </div>
+                                          <div class="card-footer">
+                                              <button type="submit" class="btn btn-sm btn-primary">Save</button>
+                                          </div>
+                                      </div>
+                                  </div>
+                              </div>
+                          </form>
                       </div>
                   </div>
                 </div>

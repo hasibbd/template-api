@@ -98,7 +98,7 @@ class RoleController extends Controller
      */
     public function show($id)
     {
-        $role = Role::find($id);
+       /* $role = Role::find($id);
         $rolePermissions = Permission::join('role_has_permissions', 'role_has_permissions.permission_id', 'permissions.id')
             ->where('role_has_permissions.role_id',$id)
             ->get();
@@ -106,6 +106,30 @@ class RoleController extends Controller
             'message' => 'Role lost',
             'role' => $role,
             'permission' => $rolePermissions
+        ],200);*/
+
+        $role = Role::find($id);
+        $rolePermissions = Permission::all();
+        $has_per = DB::table('role_has_permissions')->where('role_id', $id)->get();
+        $data = [];
+        foreach ($rolePermissions as $r){
+            $is_found = false;
+            foreach ($has_per as $hp){
+                if ((int)$hp->permission_id == (int)$r->id){
+                    $is_found = true;
+                }
+            }
+            array_push($data, [
+                'id' =>   $r->id,
+                'name' => $r->name,
+                'parent_menu' => $r->parent_menu,
+                'is_checked' => $is_found
+            ]);
+        }
+        return response()->json([
+            'message' => 'Role lost',
+            'role' => $role,
+            'permission' => $data
         ],200);
       //  return view('roles.show', compact('role', 'rolePermissions'));
     }
@@ -188,5 +212,25 @@ class RoleController extends Controller
                 'data' => $data
             ],200);
         }
+    }
+    public function storePermission(Request $request){
+      DB::table('role_has_permissions')->where('role_id', $request->id)->delete();
+        $permission = [];
+        foreach ($request->checked_item as $per){
+            $permission [] = [
+                'permission_id' => $per,
+                'role_id' => $request->id
+            ];
+        }
+        DB::table('role_has_permissions')->insert($permission);
+        Role::updateOrCreate([
+            'id' => $request->id
+        ],[
+            'name' => $request->role
+        ]);
+        return response()->json([
+            'message' => 'Data updated',
+            'data' => []
+        ],200);
     }
 }

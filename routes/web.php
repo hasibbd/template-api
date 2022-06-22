@@ -49,6 +49,7 @@ Route::group(['middleware' => ['auth']], function() {
    // Route::resource('users', UserController::class);
     Route::get('role-list', [RoleController::class, 'index'])->name('role-list.index');
     Route::get('role-status/{id}', [RoleController::class, 'status']);
+    Route::post('role-permission-store', [RoleController::class, 'storePermission']);
     Route::get('role-show/{id}', [RoleController::class, 'show']);
     Route::get('permission-list', [PermissionController::class, 'index'])->name('permission-list.index');
     Route::get('permission-status/{id}', [PermissionController::class, 'status']);

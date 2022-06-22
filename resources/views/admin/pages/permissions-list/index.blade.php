@@ -26,7 +26,7 @@
               <div class="row">
                   <div class="col-12">
                      <div class="card">
-                         <div class="card-header">
+                         <div class="card-header bg-primary">
                              <div class="custom-control custom-checkbox">
                                  <input type="checkbox" onclick="checkAll()" class="custom-control-input" id="all">
                                  <label class="custom-control-label" for="all">Select All</label>
@@ -37,7 +37,7 @@
                                 @foreach($data->where('parent_menu', 0) as $d)
                                    <div class="col-md-4">
                                        <div class="card">
-                                           <div class="card-header">
+                                           <div class="card-header bg-primary">
                                                <div class="custom-control custom-checkbox">
                                                    <input type="checkbox" class="custom-control-input" id="{{$d->name}}1">
                                                    <label class="custom-control-label" for="{{$d->name}}1">{{$d->name}}'s all</label>

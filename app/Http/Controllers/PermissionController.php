@@ -59,6 +59,7 @@ class PermissionController extends Controller
             'name' => 'required|unique:permissions,name',
         ]);
 
+
         Permission::updateOrCreate([
             'id' => $request->input('id')
             ],
