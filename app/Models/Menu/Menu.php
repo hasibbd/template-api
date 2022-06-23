@@ -10,4 +10,8 @@ class Menu extends Model
 {
     use HasFactory;
     protected $guarded = [];
+    public function profile()
+    {
+        return $this->hasOne(Has::class);
+    }
 }

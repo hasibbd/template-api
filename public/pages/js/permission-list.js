@@ -66,6 +66,7 @@ function editModule(id) {
            $('#id').val(data.data.id)
            $('#parent_id').val(data.data.parent_menu)
            $('#name').val(data.data.name)
+           $('#title').val(data.data.title)
            $('#mdl_ttl').text('Edit Data')
             $('.modal').modal('show')
         },
@@ -116,6 +117,7 @@ function createModule(id) {
     $('#parent_id').val(id)
     $('#id').val(null)
     $('#name').val(null)
+    $('#title').val(null)
     if (id == 0){
     $('#mdl_ttl').text('Add New Module')
     }else{

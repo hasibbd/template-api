@@ -113,14 +113,15 @@ class RoleController extends Controller
         $has_per = DB::table('role_has_permissions')->where('role_id', $id)->get();
         $data = [];
         foreach ($rolePermissions as $r){
-            $is_found = false;
+            $is_found = '';
             foreach ($has_per as $hp){
                 if ((int)$hp->permission_id == (int)$r->id){
-                    $is_found = true;
+                    $is_found = 'checked';
                 }
             }
             array_push($data, [
                 'id' =>   $r->id,
+                'title' => $r->title,
                 'name' => $r->name,
                 'parent_menu' => $r->parent_menu,
                 'is_checked' => $is_found

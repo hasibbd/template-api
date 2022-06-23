@@ -1,12 +1,12 @@
 $(document).ready(function () {
-    $("input[type='checkbox']").change(function () {
-
+    $(document).on("change", ":checkbox", function(){
         if ($(this).is(":checked")){
             $(this).parent().parent().next(".card-body").find(':checkbox').prop('checked', true)
         }else{
             $(this).parent().parent().next(".card-body").find(':checkbox').prop('checked', false)
+            $(this).parent().parent().parent().find(':checkbox').prop('checked', false)
         }
-    });
+    })
     var base = window.location.origin;
     function loading(type,text) {
         if (type == 'on'){
@@ -153,34 +153,41 @@ function Show(id) {
         url: my_url,
         success: (data) => {
             $('form').trigger("reset");
+            $('#permission_block').empty()
             let el = '';
-             data.permission.forEach((element, index) => {
-                 if (element.parent_menu === 0){
+            data.permission.filter(x => x.parent_menu === 0).forEach((element, index) => {
+                let checked_all = '';
+                const all_data = data.permission.filter(x => x.parent_menu === element.id).length+1;
+                let all_checked = data.permission.filter(x => x.parent_menu === element.id && x.is_checked === 'checked').length;
+                const parent_chekced = data.permission.find(x => x.id === element.id)
+                if (parent_chekced.is_checked === 'checked'){
+                    all_checked++;
+                }
+                if (all_data === all_checked){
+                    checked_all = 'checked'
+                }
                      el += '   <div class="col-md-4">\n' +
                          '                                                          <div class="card">\n' +
                          '                                                              <div class="card-header bg-primary">\n' +
                          '                                                                  <div class="custom-control custom-checkbox">\n' +
-                         '                                                                      <input type="checkbox" class="custom-control-input" id="'+element.name+'1">\n' +
-                         '                                                                      <label class="custom-control-label" for="'+element.name+'1">'+element.name+'\'s all</label>\n' +
+                         '                                                                      <input type="checkbox" '+checked_all+' class="custom-control-input" id="'+element.name+'1">\n' +
+                         '                                                                      <label class="custom-control-label" for="'+element.name+'1">'+element.title+'\'s all</label>\n' +
                          '                                                                  </div>\n' +
                          '                                                              </div>\n' +
                          '                                                              <div class="card-body">\n' +
                          '                                                                  <div class="custom-control custom-checkbox">\n' +
-                         '                                                                      <input type="checkbox" class="custom-control-input" checked="'+element.is_checked+'" name="checked_item[]" value="'+element.id+'" id="'+element.name+'">\n' +
-                         '                                                                      <label class="custom-control-label" for="'+element.name+'">'+element.name+'</label>\n' +
+                         '                                                                      <input type="checkbox" class="custom-control-input" '+element.is_checked+' name="checked_item[]" value="'+element.id+'" id="'+element.name+'">\n' +
+                         '                                                                      <label class="custom-control-label" for="'+element.name+'">'+element.title+'</label>\n' +
                          '                                                                  </div>'
-                     data.permission.forEach((element2, index2) => {
-                         if (parseInt(element2.parent_menu) === parseInt(element.id)){
+                     data.permission.filter(x => x.parent_menu === element.id).forEach((element2, index2) => {
                               el += '          <div class="custom-control custom-checkbox">\n' +
-                                  '                                                                          <input type="checkbox" checked="'+element2.is_checked+'" class="custom-control-input"  name="checked_item[]" value="'+element2.id+'" id="'+element2.name+'">\n' +
-                                  '                                                                          <label class="custom-control-label" for="'+element2.name+'">'+element2.name+'</label>\n' +
+                                  '                                                                          <input type="checkbox" '+element2.is_checked+' class="custom-control-input"  name="checked_item[]" value="'+element2.id+'" id="'+element2.name+'">\n' +
+                                  '                                                                          <label class="custom-control-label" for="'+element2.name+'">'+element2.title+'</label>\n' +
                                   '                                                                      </div>';
-                         }
                      })
                      el += '   </div>\n' +
                          '                                                          </div>\n' +
                          '                                                      </div>';
-                 }
              })
             $('#permission_block').append(el)
             $('#role').val(data.role.name)

@@ -41,9 +41,9 @@
                                      <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
                                          @foreach($data->where('parent_menu', 0) as $d)
                                              @if($loop->index == 0)
-                                                 <a class="nav-link active" id="v-pills-{{$d->name}}-tab" data-toggle="pill" href="#v-pills-{{$d->name}}" role="tab" aria-controls="v-pills-{{$d->name}}" aria-selected="true">{{$d->name}}</a>
+                                                 <a class="nav-link active" id="v-pills-{{$d->name}}-tab" data-toggle="pill" href="#v-pills-{{$d->name}}" role="tab" aria-controls="v-pills-{{$d->name}}" aria-selected="true">{{$d->title}}</a>
                                              @else
-                                                 <a class="nav-link" id="v-pills-{{$d->name}}-tab" data-toggle="pill" href="#v-pills-{{$d->name}}" role="tab" aria-controls="v-pills-{{$d->name}}" aria-selected="false">{{$d->name}}</a>
+                                                 <a class="nav-link" id="v-pills-{{$d->name}}-tab" data-toggle="pill" href="#v-pills-{{$d->name}}" role="tab" aria-controls="v-pills-{{$d->name}}" aria-selected="false">{{$d->title}}</a>
                                              @endif
                                          @endforeach
                                     </div>
@@ -63,13 +63,15 @@
                                                                 <table class="table table-bordered table-sm small">
                                                                     <thead>
                                                                     <tr>
-                                                                        <th class="w-75">Permission Name</th>
-                                                                        <th class="w-25">Action</th>
+                                                                        <th class="w-40">Permission Name</th>
+                                                                        <th class="w-40">URL</th>
+                                                                        <th class="w-20">Action</th>
                                                                     </tr>
                                                                     </thead>
                                                                     <tbody>
                                                                     @foreach($data->where('parent_menu', $d->id) as $c)
                                                                         <tr>
+                                                                            <th>{{$c->title}}</th>
                                                                             <th>{{$c->name}}</th>
                                                                             <th>
                                                                                 <button onclick="editModule({{$c->id}})" class="btn btn-sm btn-warning" data-toggle="tooltip" data-placement="top" title="Edit Permission Name: {{$c->name}}"><i class="fas fa-edit"></i></button>
@@ -94,13 +96,15 @@
                                                              <table class="table table-bordered table-sm small">
                                                                  <thead>
                                                                  <tr>
-                                                                     <th class="w-75">Permission Name</th>
-                                                                     <th class="w-25">Action</th>
+                                                                     <th class="w-40">Permission Name</th>
+                                                                     <th class="w-40">URL</th>
+                                                                     <th class="w-20">Action</th>
                                                                  </tr>
                                                                  </thead>
                                                                  <tbody>
                                                                  @foreach($data->where('parent_menu', $d->id) as $c)
                                                                      <tr>
+                                                                         <th>{{$c->title}}</th>
                                                                          <th>{{$c->name}}</th>
                                                                          <th>
                                                                              <button onclick="editModule({{$c->id}})" class="btn btn-sm btn-warning" data-toggle="tooltip" data-placement="top" title="Edit Permission Name: {{$c->name}}"><i class="fas fa-edit"></i></button>

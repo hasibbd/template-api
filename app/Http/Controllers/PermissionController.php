@@ -55,15 +55,23 @@ class PermissionController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validate($request, [
-            'name' => 'required|unique:permissions,name',
-        ]);
-
+        if ($request->input('id')){
+            $this->validate($request, [
+                'name' => 'required',
+                'title' => 'required',
+            ]);
+        }else{
+            $this->validate($request, [
+                'name' => 'required|unique:permissions,name',
+                'title' => 'required|unique:permissions,name',
+            ]);
+        }
 
         Permission::updateOrCreate([
             'id' => $request->input('id')
             ],
             [
+                'title' => $request->input('title'),
                 'name' => $request->input('name'),
                 'parent_menu' => $request->input('parent_id')
             ]);
@@ -117,7 +125,8 @@ class PermissionController extends Controller
     public function update(Request $request, $id)
     {
         $this->validate($request, [
-            'name' => 'required'
+            'name' => 'required',
+            'title' => 'required'
         ]);
 
         $permission = Permission::find($id);

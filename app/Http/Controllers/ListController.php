@@ -21,7 +21,7 @@ class ListController extends Controller
                 ->addIndexColumn()
                 ->addColumn('action', function($row){
 
-                    $btn = '<a href="javascript:void(0)" class="edit btn btn-primary btn-sm">View</a>';
+                    $btn = '<button onclick="editData('.$row->id.')" class="edit btn btn-primary btn-sm">View</button>';
 
                     return $btn;
                 })

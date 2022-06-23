@@ -15,7 +15,11 @@
                           <input type="hidden" name="id" id="id">
                           <input type="hidden" name="parent_id" id="parent_id">
                           <div class="form-group ">
-                              <label for="title">Name</label>
+                              <label for="title">Title</label>
+                              <input type="text" class="form-control" id="title" name="title" placeholder="Title" required>
+                          </div>
+                          <div class="form-group ">
+                              <label for="name">Name</label>
                               <input type="text" class="form-control" id="name" name="name" placeholder="Name" required>
                           </div>
                       </div>

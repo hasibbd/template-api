@@ -3,7 +3,7 @@
     <div class="modal-dialog modal-xl">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="staticBackdropLabel"><span id="mdl_ttl"></span> Category</h5>
+                <h5 class="modal-title" id="staticBackdropLabel"><span id="mdl_ttl"></span> Role Permission</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -19,7 +19,6 @@
                           </div>
                       </div>
                       <div class="col-md-12">
-                          <form action="" id="form_submit">
                               <div class="row">
                                   <div class="col-12">
                                       <div class="card">
@@ -34,13 +33,9 @@
 
                                               </div>
                                           </div>
-                                          <div class="card-footer">
-                                              <button type="submit" class="btn btn-sm btn-primary">Save</button>
-                                          </div>
                                       </div>
                                   </div>
                               </div>
-                          </form>
                       </div>
                   </div>
                 </div>

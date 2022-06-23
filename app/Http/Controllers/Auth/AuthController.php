@@ -9,6 +9,12 @@ use Illuminate\Support\Facades\Auth;
 
 class AuthController extends Controller
 {
+     public function __construct()
+     {
+         if (Auth::user()){
+             return view('admin.pages.dashboard.dashboard');
+         }
+     }
     public function login(){
        return view('auth.pages.login');
     }
