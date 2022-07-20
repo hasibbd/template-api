@@ -16,16 +16,22 @@ class ListController extends Controller
     public function index(Request $request)
     {
         if ($request->ajax()) {
-            $data = User::select('*');
+            $data = User::leftJoin('roles','users.role','roles.id')->select('users.*','roles.name as role')->get();
             return Datatables::of($data)
                 ->addIndexColumn()
                 ->addColumn('action', function($row){
 
-                    $btn = '<a href="javascript:void(0)" class="edit btn btn-primary btn-sm">View</a>';
+                    $btn = '<button onclick="editData('.$row->id.')" class="edit btn btn-primary btn-sm">View</button>';
 
                     return $btn;
                 })
-                ->rawColumns(['action'])
+                ->addColumn('role', function($row){
+
+                    $btn =  '<span class="badge badge-pill badge-primary">'.$row->role.'</span>';
+
+                    return $btn;
+                })
+                ->rawColumns(['action','role'])
                 ->make(true);
         }
 

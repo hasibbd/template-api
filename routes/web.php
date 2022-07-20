@@ -4,6 +4,8 @@ use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ListController;
 use App\Http\Controllers\Menu\MenuController;
+use App\Http\Controllers\PermissionController;
+use App\Http\Controllers\RoleController;
 use App\Http\Controllers\User\ProfileController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
@@ -42,3 +44,21 @@ Route::post('user-forget', [UserController::class, 'forget']);
 Route::post('reset-user-pass', [UserController::class, 'reset']);
 Route::post('login-check', [DashboardController::class, 'index'])->middleware('login-check');
 Route::get('logout', [AuthController::class, 'logout'])->name('logout');
+
+Route::group(['middleware' => ['auth']], function() {
+   // Route::resource('users', UserController::class);
+    Route::get('role-list', [RoleController::class, 'index'])->name('role-list.index');
+    Route::get('role-status/{id}', [RoleController::class, 'status']);
+    Route::post('role-permission-store', [RoleController::class, 'storePermission']);
+    Route::get('role-show/{id}', [RoleController::class, 'show']);
+    Route::get('permission-list', [PermissionController::class, 'index'])->name('permission-list.index');
+    Route::get('permission-status/{id}', [PermissionController::class, 'status']);
+    Route::get('permission-show/{id}', [PermissionController::class, 'show']);
+    Route::delete('permission-delete/{id}', [PermissionController::class, 'destroy']);
+    Route::post('permission-store', [PermissionController::class, 'store']);
+
+
+    Route::get('privilege-list', [PermissionController::class, 'index2'])->name('privilege-list.index');
+   // Route::resource('roles', RoleController::class);
+   // Route::resource('permissions', PermissionController::class);
+});

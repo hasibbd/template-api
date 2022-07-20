@@ -26,23 +26,17 @@
                   <div class="col-12">
                      <div class="card">
                          <div class="card-header">
-                             <div class="row">
-                                 <div class="col"><div class="card-title">
-                                         Flying User
-                                     </div></div>
-                                 <div class="col text-right">
-                                     <button onclick="$('#add_modal').modal('show')" class="btn btn-sm btn-primary">Add New</button>
-                                 </div>
+                             <div class="card-title">
+                                User List
                              </div>
                          </div>
                          <div class="card-body">
-                             <table class="table table-bordered table-responsive-sm w-100 table-sm" id="user_list">
+                             <table class="table table-bordered table-responsive-sm w-100 table-sm" id="role_list">
                                  <thead>
                                  <tr>
                                      <th>No</th>
                                      <th>Name</th>
-                                     <th>Email</th>
-                                     <th>Role</th>
+                                     <th>Status</th>
                                      <th width="100px">Action</th>
                                  </tr>
                                  </thead>
@@ -57,5 +51,5 @@
         </section>
         <!-- /.content -->
     </div>
-
+@include('admin.pages.roles-list.modal')
 @endsection

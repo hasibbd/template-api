@@ -71,5 +71,8 @@ class Kernel extends HttpKernel
         'login-check' => LoginCheck::class,
         'admin' => isAdmin::class,
         'user' => isUser::class,
+        'role' => \Spatie\Permission\Middlewares\RoleMiddleware::class,
+        'permission' => \Spatie\Permission\Middlewares\PermissionMiddleware::class,
+        'role_or_permission' => \Spatie\Permission\Middlewares\RoleOrPermissionMiddleware::class,
     ];
 }
