@@ -42,6 +42,7 @@
                                      <th>No</th>
                                      <th>Name</th>
                                      <th>Email</th>
+                                     <th>Role</th>
                                      <th width="100px">Action</th>
                                  </tr>
                                  </thead>

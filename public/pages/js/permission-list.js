@@ -1,4 +1,4 @@
-$(document).ready(function () {
+jQuery(document).ready(function ($) {
 
     var base = window.location.origin;
     function loading(type,text) {
@@ -15,7 +15,18 @@ $(document).ready(function () {
         $('form').trigger("reset");
         $("formId")[0].reset()
     }
-
+    $('[data-toggle="tooltip"]').tooltip()
+    $("#permission_list").DataTable({
+        processing: true,
+        serverSide: true,
+        ajax: "/permission-list",
+        columns: [
+            {data: 'DT_RowIndex', name: 'DT_RowIndex'},
+            {data: 'name', name: 'name'},
+            {data: 'status', name: 'status'},
+            {data: 'action', name: 'action', orderable: false, searchable: false},
+        ]
+    });
     $('#form_submit').submit(function (e) {
         $.ajaxSetup({
             headers: {

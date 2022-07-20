@@ -24,7 +24,7 @@
                                       <div class="card">
                                           <div class="card-header bg-primary">
                                               <div class="custom-control custom-checkbox">
-                                                  <input type="checkbox" onclick="checkAll()" class="custom-control-input" id="all">
+                                                  <input type="checkbox" class="custom-control-input" id="all">
                                                   <label class="custom-control-label" for="all">Select All</label>
                                               </div>
                                           </div>

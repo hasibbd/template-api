@@ -5,6 +5,7 @@ namespace App\Providers;
 use App\Models\Master\UserMenu;
 use App\Models\Menu\Menu;
 use App\Models\UserProfile;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\Facades\Auth;
@@ -21,6 +22,7 @@ class MenuServiceProvider extends ServiceProvider
         View::composer(['admin.app.layout'], function ($view) {
 
             $list = Menu::all();
+
             $info = $this->MenuMaker($list, null);
 
             $view->with('menus', $info);
@@ -51,7 +53,19 @@ class MenuServiceProvider extends ServiceProvider
                 ]);
             }
         }
-        return $info;
+        $permissions = DB::table('role_has_permissions as rhp')
+            ->leftJoin('permissions as per','rhp.permission_id','per.id')
+            ->where('rhp.role_id', Auth::user()->role)
+            ->get();
+        $menus = [];
+        foreach ($info as $i){
+            foreach ($permissions as $p){
+                if ($i['href'] == $p->name){
+                    $menus [] = $i;
+                }
+            }
+        }
+        return $menus;
     }
 
     /**
