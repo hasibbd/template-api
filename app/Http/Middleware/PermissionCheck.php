@@ -5,8 +5,9 @@ namespace App\Http\Middleware;
 use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
-class isUser
+class PermissionCheck
 {
     /**
      * Handle an incoming request.
@@ -17,7 +18,12 @@ class isUser
      */
     public function handle(Request $request, Closure $next)
     {
-        if (Auth::user()->role == CONST_ROLE_USER){
+        $per = DB::table('role_has_permissions as rhp')
+               ->leftJoin('permissions as p','rhp.permission_id','p.id')
+               ->where('p.name', $request->route()->uri)
+               ->where('rhp.role_id', Auth::user()->role)
+               ->first();
+        if ($per){
             return $next($request);
         }
         Auth::logout();

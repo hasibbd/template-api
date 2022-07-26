@@ -5,6 +5,7 @@ namespace App\Http;
 use App\Http\Middleware\isAdmin;
 use App\Http\Middleware\isUser;
 use App\Http\Middleware\LoginCheck;
+use App\Http\Middleware\PermissionCheck;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 
 class Kernel extends HttpKernel
@@ -70,7 +71,7 @@ class Kernel extends HttpKernel
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'login-check' => LoginCheck::class,
         'admin' => isAdmin::class,
-        'user' => isUser::class,
+        'permission-check' => PermissionCheck::class,
         'role' => \Spatie\Permission\Middlewares\RoleMiddleware::class,
         'permission' => \Spatie\Permission\Middlewares\PermissionMiddleware::class,
         'role_or_permission' => \Spatie\Permission\Middlewares\RoleOrPermissionMiddleware::class,

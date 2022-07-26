@@ -21,7 +21,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware(['admin'])->group(function () {
+
+Route::middleware(['permission-check'])->group(function () {
     Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
     Route::get('user-list', [ListController::class, 'index'])->name('user-list.index');
     Route::get('menu-list', [MenuController::class, 'index']);
@@ -29,9 +30,6 @@ Route::middleware(['admin'])->group(function () {
     Route::post('menu-store', [MenuController::class, 'store']);
     Route::get('profile', [ProfileController::class, 'index'])->name('profile');
     Route::post('profile-info-change', [ProfileController::class, 'update']);
-});
-Route::middleware(['user'])->group(function () {
-
 });
 
 Route::get('/', [AuthController::class, 'login'])->name('/');
@@ -51,6 +49,7 @@ Route::group(['middleware' => ['auth']], function() {
     Route::get('role-status/{id}', [RoleController::class, 'status']);
     Route::post('role-permission-store', [RoleController::class, 'storePermission']);
     Route::get('role-show/{id}', [RoleController::class, 'show']);
+    Route::get('all-role-show', [RoleController::class, 'showAll']);
     Route::get('permission-list', [PermissionController::class, 'index'])->name('permission-list.index');
     Route::get('permission-status/{id}', [PermissionController::class, 'status']);
     Route::get('permission-show/{id}', [PermissionController::class, 'show']);

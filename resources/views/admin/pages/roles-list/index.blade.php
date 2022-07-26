@@ -22,12 +22,19 @@
         <!-- Main content -->
         <section class="content">
             <div class="container-fluid">
-              <div class="row">
+                  <div class="row">
                   <div class="col-12">
                      <div class="card">
                          <div class="card-header">
-                             <div class="card-title">
-                                User List
+                             <div class="row">
+                                 <div class="col">
+                                     <div class="card-title">
+                                         Role
+                                     </div>
+                                 </div>
+                                 <div class="col text-right">
+                                     <button onclick="openModal()" class="btn btn-sm btn-primary">Add New Role</button>
+                                 </div>
                              </div>
                          </div>
                          <div class="card-body">
@@ -45,8 +52,7 @@
                              </table>
                          </div>
                      </div>
-                  </div>
-              </div>
+                     </div>
             </div><!-- /.container-fluid -->
         </section>
         <!-- /.content -->

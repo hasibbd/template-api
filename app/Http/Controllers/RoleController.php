@@ -98,16 +98,6 @@ class RoleController extends Controller
      */
     public function show($id)
     {
-       /* $role = Role::find($id);
-        $rolePermissions = Permission::join('role_has_permissions', 'role_has_permissions.permission_id', 'permissions.id')
-            ->where('role_has_permissions.role_id',$id)
-            ->get();
-        return response()->json([
-            'message' => 'Role lost',
-            'role' => $role,
-            'permission' => $rolePermissions
-        ],200);*/
-
         $role = Role::find($id);
         $rolePermissions = Permission::all();
         $has_per = DB::table('role_has_permissions')->where('role_id', $id)->get();
@@ -130,6 +120,26 @@ class RoleController extends Controller
         return response()->json([
             'message' => 'Role lost',
             'role' => $role,
+            'permission' => $data
+        ],200);
+      //  return view('roles.show', compact('role', 'rolePermissions'));
+    }
+    public function showAll()
+    {
+        $rolePermissions = Permission::all();
+        $data = [];
+        foreach ($rolePermissions as $r){
+            $is_found = '';
+            array_push($data, [
+                'id' =>   $r->id,
+                'title' => $r->title,
+                'name' => $r->name,
+                'parent_menu' => $r->parent_menu,
+                'is_checked' => $is_found
+            ]);
+        }
+        return response()->json([
+            'message' => 'Role lost',
             'permission' => $data
         ],200);
       //  return view('roles.show', compact('role', 'rolePermissions'));
@@ -215,20 +225,24 @@ class RoleController extends Controller
         }
     }
     public function storePermission(Request $request){
-      DB::table('role_has_permissions')->where('role_id', $request->id)->delete();
+        if ($request->id){
+            Role::where('id', $request->id)->update([
+                'name' => $request->role
+            ]);
+            DB::table('role_has_permissions')->where('role_id', $request->id)->delete();
+        }else{
+            $st = Role::create([
+                'name' => $request->role
+            ]);
+        }
         $permission = [];
         foreach ($request->checked_item as $per){
             $permission [] = [
                 'permission_id' => $per,
-                'role_id' => $request->id
+                'role_id' => $request->id ? $request->id: $st->id
             ];
         }
         DB::table('role_has_permissions')->insert($permission);
-        Role::updateOrCreate([
-            'id' => $request->id
-        ],[
-            'name' => $request->role
-        ]);
         return response()->json([
             'message' => 'Data updated',
             'data' => []
