@@ -14,7 +14,7 @@
             </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="{{'logout'}}" role="button">
+            <a class="nav-link" href="/logout" role="button">
                 <i class="fas fa-power-off"></i>
             </a>
         </li>

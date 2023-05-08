@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\Auth\AuthController;
+use App\Http\Controllers\Configuration\MenuAssignController;
+use App\Http\Controllers\Configuration\RoleController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\Configuration\MenuController;
 use App\Http\Controllers\User\ProfileController;
@@ -29,6 +31,18 @@ Route::middleware(['admin'])->group(function () {
 
     Route::get('profile', [ProfileController::class, 'index'])->name('profile');
     Route::post('profile-info-change', [ProfileController::class, 'update']);
+
+    Route::get('role', [RoleController::class, 'index'])->name('role.index');
+    Route::post('role-store', [RoleController::class, 'store']);
+    Route::get('role-show/{id}', [RoleController::class, 'edit']);
+    Route::get('role-status/{id}', [RoleController::class, 'status']);
+    Route::delete('role-delete/{id}', [RoleController::class, 'destroy']);
+
+    Route::get('assign-menu/{id}', [MenuAssignController::class, 'index'])->name('assign-menu.index');
+    Route::post('assign-menu-store', [MenuAssignController::class, 'store']);
+    Route::get('assign-menu-show/{id}', [MenuAssignController::class, 'edit']);
+    Route::get('assign-menu-status/{id}', [MenuAssignController::class, 'status']);
+    Route::delete('assign-menu-delete/{id}', [MenuAssignController::class, 'destroy']);
 });
 Route::middleware(['user'])->group(function () {
 

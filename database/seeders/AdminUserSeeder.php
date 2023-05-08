@@ -39,6 +39,12 @@ class AdminUserSeeder extends Seeder
             'icon' => 'fas fa-users',
             'target' => '_self',
             'title' => 'User List'
+        ], [
+            'text' => 'Role List',
+            'href' => 'role',
+            'icon' => 'fas fa-users',
+            'target' => '_self',
+            'title' => 'Role List'
         ]);
     }
 }
