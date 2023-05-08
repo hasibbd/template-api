@@ -35,6 +35,7 @@
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <!--Toaster-->
 <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+
 <script src="{{asset('plugins/menu-editor/jquery-menu-editor.js')}}"></script>
 <script type="text/javascript" src="{{asset('plugins/bootstrap-iconpicker/js/iconset/fontawesome5-3-1.min.js')}}"></script>
 <script type="text/javascript" src="{{asset('plugins/bootstrap-iconpicker/js/bootstrap-iconpicker.min.js')}}"></script>

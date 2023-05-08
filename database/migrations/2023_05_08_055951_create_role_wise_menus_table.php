@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateProductsTable extends Migration
+class CreateRoleWiseMenusTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,13 @@ class CreateProductsTable extends Migration
      */
     public function up()
     {
-        Schema::create('products', function (Blueprint $table) {
+        Schema::create('role_wise_menus', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->text('detail');
+            $table->unsignedBigInteger('role_id');
+            $table->unsignedBigInteger('menu_id');
             $table->timestamps();
+            $table->foreign('menu_id')->references('id')->on('menus');
+            $table->foreign('role_id')->references('id')->on('roles');
         });
     }
 
@@ -28,6 +30,6 @@ class CreateProductsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('products');
+        Schema::dropIfExists('role_wise_menus');
     }
 }
