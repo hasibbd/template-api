@@ -1,11 +1,10 @@
 <?php
 
-namespace App\Http\Controllers\Menu;
+namespace App\Http\Controllers\Configuration;
 
 use App\Http\Controllers\Controller;
 use App\Models\Menu\Menu;
 use Illuminate\Http\Request;
-use phpDocumentor\Reflection\Types\This;
 
 class MenuController extends Controller
 {
@@ -18,19 +17,19 @@ class MenuController extends Controller
     {
         return view('admin.pages.menu-list.index');
     }
-  /**
+    /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\JsonResponse
      */
     public function getList()
     {
-      $list = Menu::all();
-      $info = $this->MenuMaker($list, null);
-      return response()->json([
-          'data' => json_encode($info),
-          'message' => 'Menu loaded'
-      ],200);
+        $list = Menu::all();
+        $info = $this->MenuMaker($list, null);
+        return response()->json([
+            'data' => json_encode($info),
+            'message' => 'Menu loaded'
+        ],200);
     }
     public function MenuMaker($data, $parent_id){
         $st = $data;
@@ -84,17 +83,17 @@ class MenuController extends Controller
             ],404);
         }
         Menu::truncate();
-       $st = $this->MenuFormatter($request->menu_data, null);
-       if ($st){
-           return response()->json([
-               'data' => Menu::all(),
-               'message' => 'Menu stored'
-           ],200);
-       }
+        $st = $this->MenuFormatter($request->menu_data, null);
+        if ($st){
+            return response()->json([
+                'data' => Menu::all(),
+                'message' => 'Menu stored'
+            ],200);
+        }
     }
     public function MenuFormatter($data, $parent_id){
         foreach ($data as $d){
-           $st =  Menu::create([
+            $st =  Menu::create([
                 'text' => $d['text'],
                 'href' => $d['href'],
                 'icon' => $d['icon'],

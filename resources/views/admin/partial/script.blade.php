@@ -40,29 +40,5 @@
 <script type="text/javascript" src="{{asset('plugins/bootstrap-iconpicker/js/bootstrap-iconpicker.min.js')}}"></script>
 <script src="{{asset('custom/js/admin.js')}}"></script>
 //Custom js page wise
-<script src="{{asset('pages/js/'.Request::segment(1).'.js')}}"></script>
-//yajra data table
-@switch(Request::segment(1))
-    @case('user-list')
-    <script>
-        $(function () {
-            $("#user_list").DataTable({
-                processing: true,
-                serverSide: true,
-                ajax: "{{ route('user-list.index') }}",
-                columns: [
-                    {data: 'id', name: 'id'},
-                    {data: 'name', name: 'name'},
-                    {data: 'email', name: 'email'},
-                    {data: 'action', name: 'action', orderable: false, searchable: false},
-                ]
-            });
-
-        });
-    </script>
-    @break
-    @case('menu-list')
-    <script src="{{asset('dist/js/menu.js')}}"></script>
-    @break
-
-@endswitch
+@php($v = 1)
+<script src="{{asset('pages/js/'.Request::segment(1).'.js')}}?{{$v}}"></script>

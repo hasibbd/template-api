@@ -1,28 +1,20 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Configuration;
 
-use App\Models\Menu\Menu;
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-class MenuController extends Controller
+class MenuAssignController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\View\View|\Laravel\Lumen\Application
+     * @return \Illuminate\Http\Response
      */
     public function index()
     {
-        return view('admin.pages.menu.index');
-    }
-    public function get()
-    {
-      $list = Menu::first();
-      return response()->json([
-          'message' => 'Menu list loaded',
-          'data' => json_decode($list)
-      ],200);
+        //
     }
 
     /**
@@ -39,23 +31,11 @@ class MenuController extends Controller
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\JsonResponse
+     * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
     {
-       $check = Menu::first();
-       if ($check){
-           Menu::find($check->id)->update([
-               'menu_list' => json_encode($request->menu_list)
-           ]);
-       }else{
-           Menu::create([
-             'menu_list' => json_encode($request->menu_list)
-           ]);
-       }
-        return response()->json([
-            'message' => 'Menu list stored',
-        ],200);
+        //
     }
 
     /**

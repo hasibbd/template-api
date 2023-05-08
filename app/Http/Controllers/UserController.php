@@ -7,6 +7,7 @@ use App\Notifications\PasswordReset;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
+use Yajra\DataTables\DataTables;
 
 class UserController extends Controller
 {
@@ -15,12 +16,21 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function index()
+    public function index(Request $request)
     {
-        $a = User::all();
-        return response()->json([
-            'user' => $a
-        ],200);
+        if ($request->ajax()) {
+            $data = User::latest();
+            return Datatables::of($data)
+                ->addIndexColumn()
+                ->addColumn('action', function($row){
+                    $btn = '<a href="javascript:void(0)" class="edit btn btn-primary btn-sm">View</a>';
+                    return $btn;
+                })
+                ->rawColumns(['action'])
+                ->make(true);
+        }
+
+        return view('admin.pages.user-list.index');
     }
 
     /**
