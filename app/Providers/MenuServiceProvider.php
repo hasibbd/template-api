@@ -2,12 +2,10 @@
 
 namespace App\Providers;
 
-use App\Models\Master\UserMenu;
-use App\Models\Menu\Menu;
-use App\Models\UserProfile;
+use App\Models\Configuration\Menu;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\View;
-use Illuminate\Support\Facades\Auth;
+
 
 class MenuServiceProvider extends ServiceProvider
 {

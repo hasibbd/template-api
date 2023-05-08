@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Configuration;
 
 use App\Http\Controllers\Controller;
-use App\Models\Menu\Menu;
+use App\Models\Configuration\Menu;
 use Illuminate\Http\Request;
 
 class MenuController extends Controller
