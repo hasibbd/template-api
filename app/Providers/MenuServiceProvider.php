@@ -32,7 +32,7 @@ class MenuServiceProvider extends ServiceProvider
                 $d->children = $this->MenuMaker($data, $d->id);
                 array_push($info, [
                     'text' => $d->text,
-                    'href' => $d->href,
+                    'href' => '/'.$d->href,
                     'icon' => $d->icon,
                     'target' => $d->target,
                     'title' => $d->title,
@@ -41,7 +41,7 @@ class MenuServiceProvider extends ServiceProvider
             }else{
                 array_push($info, [
                     'text' => $d->text,
-                    'href' => $d->href,
+                    'href' => '/'.$d->href,
                     'icon' => $d->icon,
                     'target' => $d->target,
                     'title' => $d->title,
