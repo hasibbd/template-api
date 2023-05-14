@@ -4,7 +4,9 @@ namespace App\Http\Controllers\Configuration;
 
 use App\Http\Controllers\Controller;
 use App\Models\Configuration\Menu;
+use App\Models\Configuration\RoleWiseMenu;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Schema;
 
 class MenuController extends Controller
 {
@@ -82,7 +84,11 @@ class MenuController extends Controller
                 'message' => 'Menu can not be empty'
             ],404);
         }
+        Schema::disableForeignKeyConstraints();
         Menu::truncate();
+        RoleWiseMenu::truncate();
+        Schema::enableForeignKeyConstraints();
+
         $st = $this->MenuFormatter($request->menu_data, null);
         if ($st){
             return response()->json([
