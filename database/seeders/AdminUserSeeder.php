@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\Models\Menu\Menu;
+use App\Models\Configuration\Menu;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 

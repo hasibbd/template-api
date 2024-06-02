@@ -40,6 +40,4 @@
 <script type="text/javascript" src="{{asset('plugins/bootstrap-iconpicker/js/iconset/fontawesome5-3-1.min.js')}}"></script>
 <script type="text/javascript" src="{{asset('plugins/bootstrap-iconpicker/js/bootstrap-iconpicker.min.js')}}"></script>
 <script src="{{asset('custom/js/admin.js')}}"></script>
-//Custom js page wise
-@php($v = 1)
-<script src="{{asset('pages/js/'.Request::segment(1).'.js')}}?{{$v}}"></script>
+@yield('script')
